@@ -1,5 +1,8 @@
 import ee
 import geemap
+import time
+
+ee.Initialize()
 
 
 def get_worldpop_data_from_gee(constrained: bool = False) -> ee.ImageCollection:
@@ -79,8 +82,8 @@ def worldpop_zonal_stats(shapefile: str,
                                                 statistics_type='SUM', bestEffort=True, tile_scale=4)
                     except Exception as ex:
                         if "Output of image computation is too large" in repr(ex.args):
-                            print("The shapefile is too big for the scale. You could try splitting up the shapefile, "
-                                  "increasing the timeout or increasing the scale.")
+                            print("The shapefile is too big for the scale. You could try splitting up the shapefile or "
+                                  "increasing the scale parameter.")
 
                         else:
                             message = error_template.format(type(ex).__name__, ex.args)
@@ -93,3 +96,12 @@ def worldpop_zonal_stats(shapefile: str,
         else:
             message = error_template.format(type(ex).__name__, ex.args)
             print(message)
+
+
+if __name__ == "__main__":
+    start_time = time.time()
+    worldpop_zonal_stats(shapefile="/Users/cate/git/mapaction-worldpop/data/gmb/gmb_admn_ad2_py_s1_wfp_pp_districts.shp",
+                         out_path="/Users/cate/git/worldpop-stats/output.shp",
+                         constrained=False,
+                         scale=100)
+    print("time elapsed: {:.2f}s".format(time.time() - start_time))

@@ -2,10 +2,12 @@
 name = "worldpop-stats"
 version = "0.1.0"
 description = ""
-authors = ["cate <catherine.seale@ukho.gov.uk>"]
+authors = ["cate <cseale@mapaction.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
+earthengine-api = "^0.1.306"
+geemap = "^0.15.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
